@@ -27,7 +27,7 @@ $session->open();
             <thead>
                 <tr>
                     <th width="40" style="text-align: right">id</th>
-                    <th width="130">barcode</th>
+                    <th width="130">code</th>
                     <th>name</th>
                     <th>category</th>
                     <th>brand</th>

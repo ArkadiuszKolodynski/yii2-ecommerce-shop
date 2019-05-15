@@ -23,7 +23,7 @@ require_once Yii::$app->basePath . '/config/config.php';
 class ShopController extends Controller {
     public $layout = 'frontend';
     
-    public function actionIndex($sort = 'box', $wrongPassword = 'false', $category = 'all') {
+    public function actionIndex($sort = 'box', $wrongPassword = 'false') {
         $totalCount = Product::find();
         
         if (!empty($_GET['search'])) {
@@ -32,6 +32,25 @@ class ShopController extends Controller {
             $totalCount = $totalCount->where('name LIKE(:search)', [
                 ':search' => $search
             ]);
+        }
+
+        if (!empty($_GET['brand'])) {
+            $brand = $_GET['brand'];
+            
+            $totalCount = $totalCount->where(['brand_id' => $brand]);
+        }
+
+        if (!empty($_GET['category'])) {
+            $category = $_GET['category'];
+            
+            $totalCount = $totalCount->where(['category_id' => $category]);
+        }
+
+        if (!empty($_GET['brand']) && !empty($_GET['category'])) {
+            $brand = $_GET['brand'];
+            $category = $_GET['category'];
+            
+            $totalCount = $totalCount->where(['brand_id' => $brand, 'category_id' => $category]);
         }
         
         $totalCount = $totalCount->count();
@@ -42,7 +61,7 @@ class ShopController extends Controller {
         ]);
         
         $products = Product::find()
-            ->orderBy('id DESC')
+            ->orderBy('RAND()')
             ->offset($pagination->offset)
             ->limit($pagination->limit); 
             
@@ -53,7 +72,26 @@ class ShopController extends Controller {
                 ':search' => $search
             ]);
         }
-        
+
+        if (!empty($_GET['brand'])) {
+            $brand = $_GET['brand'];
+            
+            $products = $products->where(['brand_id' => $brand]);
+        }
+
+        if (!empty($_GET['category'])) {
+            $category = $_GET['category'];
+            
+            $products = $products->where(['category_id' => $category]);
+        }
+
+        if (!empty($_GET['brand']) && !empty($_GET['category'])) {
+            $brand = $_GET['brand'];
+            $category = $_GET['category'];
+            
+            $products = $products->where(['brand_id' => $brand, 'category_id' => $category]);
+        }
+
         return $this->render('//Frontend/Index', [
             'brand' => null,
             'category' => null,
@@ -69,7 +107,7 @@ class ShopController extends Controller {
         $product = Product::findOne($id);
         $productImages = ProductImage::find()
           ->where(['product_id' => $id])
-          ->orderBy('id DESC')
+          ->orderBy('id')
           ->all();
           
         return $this->render('//Frontend/ProductView', [

@@ -23,7 +23,7 @@ class ProductImageController extends Controller {
         $product = Product::findOne($product_id);
         $productImages = ProductImage::find()
           ->where(['product_id'=>$product_id])
-          ->orderBy('id DESC')
+          ->orderBy('id')
           ->all();
           
         return $this->render('//ProductImage/Index', [

@@ -37,6 +37,21 @@ use yii\helpers\Url;
                             <i class="glyphicon glyphicon-ok"></i>
                             <?php echo $order->status; ?>
                         </div>
+                        <?php elseif ($order->status === "canceled"): ?>
+                        <div class="label label-danger">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            <?php echo $order->status; ?>
+                        </div>
+                        <?php elseif ($order->status === "sent"): ?>
+                        <div class="label label-info">
+                            <i class="glyphicon glyphicon-envelope"></i>
+                            <?php echo $order->status; ?>
+                        </div>
+                        <?php elseif ($order->status === "waiting"): ?>
+                        <div class="label label-warning">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                            <?php echo $order->status; ?>
+                        </div>
                         <?php else: ?>
                             <?php echo $order->status; ?>
                         <?php endif; ?>

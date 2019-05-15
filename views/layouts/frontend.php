@@ -8,6 +8,8 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\web\Session;
 use app\models\Company;
+use app\models\Brand;
+use app\models\Category;
 use yii\widgets\ActiveForm;
 
 AppAsset::register($this);
@@ -16,6 +18,8 @@ $session = new \yii\web\Session();
 $session->open();
 
 $company = Company::find()->one();
+$brands = Brand::find()->orderBy('name')->all();
+$categories = Category::find()->orderBy('name')->all();;
 ?>
 
 <?php $this->beginPage(); ?>
@@ -133,15 +137,33 @@ $company = Company::find()->one();
                                             Home
                                         </a>
                                     </li>
-                                    <li class="<?php if (strpos(Url::current(), '/shop/categories') !== false) echo 'active'; ?>">
+                                    <li class="dropdown<?php if (strpos(Url::current(), '/shop/categories') !== false) echo ' active'; ?>">
                                         <a href="<?php echo Url::toRoute('/shop/categories'); ?>">
                                             Categories
                                         </a>
+                                        <div class="dropdown-menu">
+                                        <?php foreach($categories as $category): ?>
+                                        <?php if(strpos(Yii::$app->request->url, Url::toRoute('/shop/index')) !== false): ?>
+                                            <a class="dropdown-item" href="<?php echo Url::current(['category' => $category->id]) ?>"><?php echo $category->name ?></a><br>
+                                        <?php else: ?>
+                                            <a class="dropdown-item" href="<?php echo Url::toRoute(['/shop/index', 'category' => $category->id]) ?>"><?php echo $category->name ?></a><br>
+                                        <?php endif ?>
+                                        <?php endforeach ?>
+                                        </div>
                                     </li>
-                                    <li class="<?php if (strpos(Url::current(), '/shop/brands') !== false) echo 'active'; ?>">
+                                    <li class="dropdown<?php if (strpos(Url::current(), '/shop/brands') !== false) echo ' active'; ?>">
                                         <a href="<?php echo Url::toRoute('/shop/brands'); ?>">
                                             Brands
                                         </a>
+                                        <div class="dropdown-menu">
+                                        <?php foreach($brands as $brand): ?>
+                                        <?php if(strpos(Yii::$app->request->url, Url::toRoute('/shop/index')) !== false): ?>
+                                            <a class="dropdown-item" href="<?php echo Url::current(['brand' => $brand->id]) ?>"><?php echo $brand->name ?></a><br>
+                                        <?php else: ?>
+                                            <a class="dropdown-item" href="<?php echo Url::toRoute(['/shop/index', 'brand' => $brand->id]) ?>"><?php echo $brand->name ?></a><br>
+                                        <?php endif ?>
+                                        <?php endforeach ?>
+                                        </div>
                                     </li>
                                     <li class="<?php if (strpos(Url::current(), '/shop/about') !== false) echo 'active'; ?>">
                                         <a href="<?php echo Url::toRoute('/shop/about'); ?>">

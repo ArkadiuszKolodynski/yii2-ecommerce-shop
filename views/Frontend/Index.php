@@ -2,6 +2,8 @@
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
+use app\models\Brand;
+use app\models\Category;
 ?>
 
 <?php if($wrongPassword === 'true'): ?>
@@ -39,6 +41,18 @@ use yii\widgets\LinkPager;
     <div class="clearfix"></div>
 </div>
 <div class="panel">
+<?php if (!empty($_GET['category'])): ?>
+    <?php $categoryFilter = Category::findOne($_GET['category']) ?>
+    <a class="btn btn-danger" href="<?php echo Url::current(['category' => null]) ?>">
+        <?php echo $categoryFilter->name ?> <i class="glyphicon glyphicon-remove"></i>
+    </a>
+<?php endif ?>
+<?php if (!empty($_GET['brand'])): ?>
+    <?php $brandFilter = Brand::findOne($_GET['brand']) ?>
+    <a class="btn btn-danger" href="<?php echo Url::current(['brand' => null]) ?>">
+        <?php echo $brandFilter->name ?> <i class="glyphicon glyphicon-remove"></i>
+    </a>
+<?php endif ?>
 <?php if ($brand !== null) echo '
 <nav aria-label="breadcrumb" style="font-size: 20px">
   <ol class="breadcrumb">

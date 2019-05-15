@@ -4,11 +4,15 @@ body {
   background-color: #323639; /* #d2d7d3; */
 }
 
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
 #payu-payment-form {
   border: 0px;
   height: 50px;
   width: 290px;
-  background: url('http://static.payu.com/pl/standard/partners/buttons/payu_account_button_long_03.png');
+  background: url("http://static.payu.com/pl/standard/partners/buttons/payu_account_button_long_03.png");
   background-repeat: no-repeat;
   cursor: pointer;
   font-size: 0;

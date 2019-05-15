@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
         ?>
         
         <div class="form-group">
-            <input type="submit" value="Send Data" class="btn btn-primary" />
+            <input type="submit" value="Register" class="btn btn-primary" />
         </div>
         <?php ActiveForm::end(); ?>
     </div>

@@ -67,11 +67,11 @@ use yii\helpers\Url;
                 <i class="glyphicon glyphicon-chevron-left"></i> 
                 Back
             </a>
-            <a href="<?php echo Url::toRoute(['/orders/pay', 'id' => $order->id]); ?>" class="btn btn-success">
+            <a href="<?php echo Url::toRoute(['/orders/pay', 'id' => $order->id]); ?>" class="btn btn-success<?php echo $order->status === 'paid' || $order->status === 'sent' ? ' disabled' : '' ?>">
                 <i class="glyphicon glyphicon-ok"></i> 
                 Pay
             </a>
-            <a href="<?php echo Url::toRoute(['/orders/send', 'id' => $order->id]); ?>" class="btn btn-warning">
+            <a href="<?php echo Url::toRoute(['/orders/send', 'id' => $order->id]); ?>" class="btn btn-warning<?php echo $order->status === 'waiting' || $order->status === 'sent' ? ' disabled' : '' ?>">
                 <i class="glyphicon glyphicon-share-alt"></i> 
                 Send
             </a>
