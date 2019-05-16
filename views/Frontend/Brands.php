@@ -11,7 +11,7 @@ use yii\helpers\Url;
     <div class="panel-body">
     <div class="list-group">
             <?php foreach($brands as $brand): ?>
-            <a href="<?php echo Url::toRoute(['/shop/brands', 'id' => $brand->id]) ?>" class="list-group-item list-group-item-info"><?php echo $brand->name; ?></a>
+            <a href="<?php echo Url::toRoute(['/shop/index', 'brand' => $brand->id]) ?>" class="list-group-item list-group-item-info"><?php echo $brand->name; ?></a>
             <?php endforeach ?>
         </div>
     </div>

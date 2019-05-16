@@ -128,9 +128,11 @@ use app\models\Category;
     <div class="text-center">Total count: <strong><?php echo $totalCount; ?></strong></div>
     <hr>
     <div style="text-align: center">
+    <?php if (!empty($_GET['brand']) || !empty($_GET['category'])): ?>
         <?php echo LinkPager::widget([
             'pagination' => $pagination, 
         ]);
         ?>
+    <?php endif ?>
     </div>
 </div>

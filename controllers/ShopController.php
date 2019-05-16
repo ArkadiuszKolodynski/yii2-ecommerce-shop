@@ -59,11 +59,21 @@ class ShopController extends Controller {
             'totalCount' => $totalCount,
             'pageSize' => 9
         ]);
+
+        $products = null;
         
-        $products = Product::find()
+        if (empty($_GET['brand']) && empty($_GET['category']) && empty($_GET['search'])) {
+            $products = Product::find()
             ->orderBy('RAND()')
             ->offset($pagination->offset)
             ->limit($pagination->limit); 
+        } else {
+            $products = Product::find()
+            ->orderBy('id')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit); 
+        }
+        
             
         if (!empty($_GET['search'])) {
             $search = '%'.$_GET['search'].'%';
